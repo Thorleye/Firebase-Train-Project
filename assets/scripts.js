@@ -27,6 +27,14 @@ $( document ).ready(function() {
         frequency = $("#frequencySet").val();
             console.log(frequency);
         $(".form-control").val("");
+    
+        database.ref().push({
+            trainName:trainName,
+            destination:destination,
+            initialTime:initialTime,
+            frequency:frequency
+        })
+            
     })
 })
 
