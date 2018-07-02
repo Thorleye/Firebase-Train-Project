@@ -20,14 +20,10 @@ var config = {
 
 $(document).ready(function() {
     $("#submitButton").on("click", function(){
-        trainName =$("#trainAdd").val().trim();
-            console.log(trainName);
+        trainName =$("#trainAdd").val().trim()
         destination = $("#destinationAdd").val().trim();
-            console.log(destination);
         initialTime = $("#trainTimeSet").val();
-            console.log(initialTime);
         frequency = parseInt($("#frequencySet").val());
-            console.log(frequency);
         $(".form-control").val("");
     
         database.ref().push({
@@ -52,4 +48,5 @@ database.ref().on("child_added", function(snapshot) {
 
 //display server info into into table//
     $("#trainTable").append('<tr><td>'+ snapshot.val().trainName +'</td><td>'+snapshot.val().destination +'</td><td>'+snapshot.val().frequency +'</td><td>'+ nextArrival +'</td><td>'+ timeUntilNext+'</td></tr>')
+console.log(snapshot.val().trainName + ": this train somes every "+ snapshot.val().frequency+" minutes")
 })
