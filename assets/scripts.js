@@ -4,6 +4,8 @@ var frequency
 var nextArrival
 var minutesAway
 var initialTime
+var currentTime = moment()
+
 
 // Initialize Firebase
 var config = {
@@ -16,7 +18,7 @@ var config = {
 
   var database = firebase.database()
 
-$( document ).ready(function() {
+$(document).ready(function() {
     $("#submitButton").on("click", function(){
         trainName =$("#trainAdd").val().trim();
             console.log(trainName);
@@ -33,11 +35,19 @@ $( document ).ready(function() {
             destination:destination,
             initialTime:initialTime,
             frequency:frequency
-        })
-            
+        })   
     })
 })
 
 //pull info from server//
+database.ref().on("child_added", function(snapshot) {
+    console.log(snapshot.val().trainName)
+    //math to calculate times
+    var diffTime = moment().diff(moment(initialTime), "minutes");
+    var timeUntilNext = diffTime % frequency
+
+    var nextArrival = moment.diff
 
 //display server into into table//
+    $("#trainTable").append('<tr><td>'+ snapshot.val().trainName +'</td><td>'+snapshot.val().destination +'</td><td>'+snapshot.val().frequency +'</td><td>'+ timeUntilNext +'</td><td>'+ nextArrival+'</td></tr>')
+})
