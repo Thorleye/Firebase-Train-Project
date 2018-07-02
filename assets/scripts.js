@@ -14,6 +14,8 @@ var config = {
   };
   firebase.initializeApp(config);
 
+  var database = firebase.database()
+
 $( document ).ready(function() {
     $("#submitButton").on("click", function(){
         trainName =$("#trainAdd").val().trim();
