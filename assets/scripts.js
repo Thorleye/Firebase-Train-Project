@@ -41,19 +41,15 @@ $(document).ready(function() {
 
 //pull info from server//
 database.ref().on("child_added", function(snapshot) {
-    console.log(snapshot.val().frequency)
-    console.log(snapshot.val().initialTime)
+    
     var initialTimeMoment = moment(snapshot.val().initialTime, "HH:mm")
-    console.log("initial train converted: "+ initialTimeMoment)
+    
     //math to calculate times
     var diffTime = moment().diff(moment(initialTimeMoment), "minutes")
-    console.log("difference in time: "+ diffTime)
-    
-    var remainder = diffTime % snapshot.val().frequency; //giving time since last train//
+    var remainder = diffTime % snapshot.val().frequency;    //gives time since last train//
     var timeUntilNext = snapshot.val().frequency - remainder
-    console.log("time until" + timeUntilNext)
     var nextArrival = moment().add(timeUntilNext, "minutes").format("hh:mm a")
 
-//display server into into table//
+//display server info into into table//
     $("#trainTable").append('<tr><td>'+ snapshot.val().trainName +'</td><td>'+snapshot.val().destination +'</td><td>'+snapshot.val().frequency +'</td><td>'+ nextArrival +'</td><td>'+ timeUntilNext+'</td></tr>')
 })
